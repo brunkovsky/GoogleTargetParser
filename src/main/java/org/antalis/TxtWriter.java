@@ -11,14 +11,14 @@ public class TxtWriter implements Writer {
 
     @Override
     public void init(String filename) throws IOException {
-        File resultFile = new File(filename + ".txt");
+        File resultFile = new File(filename);
         FileWriter fileWriter = new FileWriter(resultFile.getAbsoluteFile());
         bufferedWriter = new BufferedWriter(fileWriter);
     }
 
     @Override
-    public void write(String path, String className, String description) throws IOException {
-        bufferedWriter.write(path + "\t" + className + "\t" + description + "\r\n");
+    public void write(String path, String title, String className, String description) throws IOException {
+        bufferedWriter.write(path + "\t" + title + "\t" + className + "\t" + description + "\r\n");
     }
 
     @Override

@@ -40,25 +40,26 @@ public class Main {
         File[] folderEntries = folder.listFiles();
         assert folderEntries != null;
 
-        for (File entry: folderEntries) {
-            if (entry.isDirectory()) {
-                processFilesFromFolder(entry);
+        for (int i = folderEntries.length - 1; i >= 0 ; i--) {
+            if (folderEntries[i].isDirectory()) {
+                processFilesFromFolder(folderEntries[i]);
                 continue;
             }
-            logger.info(entry + " is processing...");
-            manageResult(entry);
+            logger.info(folderEntries[i] + " is processing...");
+            manageResult(folderEntries[i]);
         }
     }
 
     private static void manageResult(File entry) throws IOException {
         Document doc = Jsoup.parse(entry, "utf-8");
         Elements trc_ = doc.select("[class^=" + PREFIX + "]");
+        String title = doc.title();
         for (Element element: trc_) {
             String path = entry.getPath().split("/sites/")[1].split(".html")[0];
             String className = element.className().split(" ")[0];
             String description = element.text();
-            excelWriter.write(path, className, description);
-            txtWriter.write(path, className, description);
+            excelWriter.write(path, title, className, description);
+            txtWriter.write(path, title, className, description);
         }
     }
 }
