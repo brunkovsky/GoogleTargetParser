@@ -12,10 +12,9 @@ public class ExcelWriter implements Writer {
     private Sheet sheet;
     private Workbook book;
     private String filename;
-    private int i = 1;
+    private int count = 1;
 
-    @Override
-    public void init(String filename) {
+    ExcelWriter(String filename) {
         this.filename = filename;
         book = new XSSFWorkbook();
         sheet = book.createSheet();
@@ -24,7 +23,7 @@ public class ExcelWriter implements Writer {
 
     @Override
     public void write(String path, String title, String className, String description) {
-        Row row = sheet.createRow(i++);
+        Row row = sheet.createRow(count++);
         row.createCell(0).setCellValue(path);
         row.createCell(1).setCellValue(title);
         row.createCell(2).setCellValue(className);

@@ -7,13 +7,16 @@ import java.io.IOException;
 
 public class TxtWriter implements Writer {
 
-    private static BufferedWriter bufferedWriter;
+    private BufferedWriter bufferedWriter;
 
-    @Override
-    public void init(String filename) throws IOException {
-        File resultFile = new File(filename);
-        FileWriter fileWriter = new FileWriter(resultFile.getAbsoluteFile());
-        bufferedWriter = new BufferedWriter(fileWriter);
+    TxtWriter(String filename) {
+        try {
+            File resultFile = new File(filename);
+            FileWriter fileWriter = new FileWriter(resultFile.getAbsoluteFile());
+            bufferedWriter = new BufferedWriter(fileWriter);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
